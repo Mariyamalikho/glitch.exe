@@ -80,19 +80,20 @@ export function WorldMapPage() {
                 onClick={() => {
                   setSelectedLoc(node.id);
                 }}
-                whileHover={{ scale: 1.2 }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 group flex flex-col items-center z-10`}
+                whileHover={{ scale: 1.08 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="absolute -translate-x-1/2 -translate-y-1/2 group flex flex-col items-center z-10 focus:outline-none"
               >
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all ${
+                  className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 ${
                     isSelected
-                      ? 'border-pink bg-pink text-white shadow-neon-pink scale-110'
+                      ? 'border-pink bg-pink text-white shadow-neon-pink scale-105'
                       : visited
                       ? 'border-cyan bg-cyan/20 text-cyan shadow-neon'
                       : 'border-white/20 bg-black/80 text-slate-500 hover:border-cyan'
                   }`}
                 >
-                  <MapPin size={20} className={isSelected ? 'animate-bounce' : ''} />
+                  <MapPin size={20} className={isSelected ? 'animate-pulse text-white' : ''} />
                 </div>
 
                 <span
