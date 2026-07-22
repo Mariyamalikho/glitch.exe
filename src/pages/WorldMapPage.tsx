@@ -73,37 +73,42 @@ export function WorldMapPage() {
             const isSelected = node.id === selectedLoc;
 
             return (
-              <motion.button
+              <div
                 key={node.id}
-                type="button"
                 style={{ left: `${node.x}%`, top: `${node.y}%` }}
-                onClick={() => {
-                  setSelectedLoc(node.id);
-                }}
-                whileHover={{ scale: 1.08 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="absolute -translate-x-1/2 -translate-y-1/2 group flex flex-col items-center z-10 focus:outline-none"
+                className="absolute -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center pointer-events-auto"
               >
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-200 ${
-                    isSelected
-                      ? 'border-pink bg-pink text-white shadow-neon-pink scale-105'
-                      : visited
-                      ? 'border-cyan bg-cyan/20 text-cyan shadow-neon'
-                      : 'border-white/20 bg-black/80 text-slate-500 hover:border-cyan'
-                  }`}
+                <button
+                  type="button"
+                  onClick={() => setSelectedLoc(node.id)}
+                  className="group flex flex-col items-center focus:outline-none"
+                  aria-label={node.name}
                 >
-                  <MapPin size={20} className={isSelected ? 'animate-pulse text-white' : ''} />
-                </div>
+                  {/* Icon Circle: Zooms in on hover/touch without moving position */}
+                  <motion.div
+                    whileHover={{ scale: 1.25 }}
+                    whileTap={{ scale: 1.15 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                    className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-200 ${
+                      isSelected
+                        ? 'border-pink bg-pink text-white shadow-neon-pink'
+                        : visited
+                        ? 'border-cyan bg-cyan/20 text-cyan shadow-neon'
+                        : 'border-white/20 bg-black/80 text-slate-400 group-hover:border-cyan group-hover:text-cyan'
+                    }`}
+                  >
+                    <MapPin size={22} className={isSelected ? 'text-white' : ''} />
+                  </motion.div>
 
-                <span
-                  className={`mt-1 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-md ${
-                    isSelected ? 'bg-pink text-white font-bold' : 'bg-black/70 text-slate-300'
-                  }`}
-                >
-                  {node.name}
-                </span>
-              </motion.button>
+                  <span
+                    className={`mt-1.5 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded backdrop-blur-md transition-colors ${
+                      isSelected ? 'bg-pink text-white font-bold' : 'bg-black/70 text-slate-300 group-hover:text-cyan'
+                    }`}
+                  >
+                    {node.name}
+                  </span>
+                </button>
+              </div>
             );
           })}
         </div>
