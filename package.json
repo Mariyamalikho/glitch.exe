@@ -15,7 +15,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "node node_modules/vite/bin/vite.js build",
+    "postinstall": "chmod +x node_modules/.bin/* 2>/dev/null || true",
     "preview": "vite preview --host 0.0.0.0",
     "lint": "eslint ."
   },
